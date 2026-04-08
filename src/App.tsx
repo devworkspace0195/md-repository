@@ -13,7 +13,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Toaster } from '@/components/ui/toaster';
-import { Plus, Download } from 'lucide-react';
+import { Plus, Upload, Check, Loader2 } from 'lucide-react';
 
 const IS_DEV = import.meta.env.DEV;
 
@@ -27,23 +27,40 @@ function MobileDetailSheet() {
   );
 }
 
-function ExportButton() {
+function PublishButton() {
   const { state } = useApp();
+  const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'no-changes'>('idle');
 
-  function handleExport() {
-    const json = JSON.stringify(state.skills, null, 2);
-    const blob = new Blob([json], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'skills.json';
-    a.click();
-    URL.revokeObjectURL(url);
+  async function handlePublish() {
+    setStatus('loading');
+    try {
+      const res = await fetch('/api/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ skills: state.skills }),
+      });
+      const data = await res.json() as { status: string };
+      setStatus(data.status === 'no-changes' ? 'no-changes' : 'done');
+    } catch {
+      setStatus('idle');
+      alert('Publish failed — check the terminal for errors.');
+    }
+    setTimeout(() => setStatus('idle'), 3000);
   }
 
   return (
-    <Button size="sm" variant="outline" className="gap-1.5" onClick={handleExport}>
-      <Download className="h-4 w-4" /> Export
+    <Button
+      size="sm"
+      variant="outline"
+      className="gap-1.5"
+      onClick={handlePublish}
+      disabled={status === 'loading'}
+    >
+      {status === 'loading' && <Loader2 className="h-4 w-4 animate-spin" />}
+      {status === 'done' && <Check className="h-4 w-4 text-green-600" />}
+      {status === 'no-changes' && <Check className="h-4 w-4 text-muted-foreground" />}
+      {status === 'idle' && <Upload className="h-4 w-4" />}
+      {status === 'loading' ? 'Publishing…' : status === 'done' ? 'Published!' : status === 'no-changes' ? 'Up to date' : 'Publish'}
     </Button>
   );
 }
@@ -60,7 +77,7 @@ function Layout() {
           <p className="text-xs text-muted-foreground">Skills &amp; prompts library</p>
         </div>
         <div className="flex items-center gap-2">
-          {IS_DEV && <ExportButton />}
+          {IS_DEV && <PublishButton />}
           {IS_DEV && (
             <Button size="sm" className="gap-1.5" onClick={() => setNewSkillOpen(true)}>
               <Plus className="h-4 w-4" /> New Skill
