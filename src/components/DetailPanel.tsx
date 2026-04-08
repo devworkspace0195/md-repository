@@ -25,6 +25,8 @@ import { categoryColors } from '@/utils/categoryColors';
 import { SkillForm } from './SkillForm';
 import { Copy, Check, Pencil, Trash2, X } from 'lucide-react';
 
+const IS_DEV = import.meta.env.DEV;
+
 export function DetailPanel() {
   const { state, dispatch } = useApp();
   const [copied, setCopied] = useState(false);
@@ -148,58 +150,65 @@ export function DetailPanel() {
           </div>
         </ScrollArea>
 
-        {/* Actions */}
-        <Separator />
-        <div className="flex gap-2 p-4">
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex-1 gap-1.5"
-            onClick={() => setEditOpen(true)}
-          >
-            <Pencil className="h-3.5 w-3.5" /> Edit
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="gap-1.5 text-destructive hover:text-destructive"
-            onClick={() => setDeleteOpen(true)}
-          >
-            <Trash2 className="h-3.5 w-3.5" />
-          </Button>
-        </div>
+        {/* Actions — dev only */}
+        {IS_DEV && (
+          <>
+            <Separator />
+            <div className="flex gap-2 p-4">
+              <Button
+                variant="outline"
+                size="sm"
+                className="flex-1 gap-1.5"
+                onClick={() => setEditOpen(true)}
+              >
+                <Pencil className="h-3.5 w-3.5" /> Edit
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="gap-1.5 text-destructive hover:text-destructive"
+                onClick={() => setDeleteOpen(true)}
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+          </>
+        )}
       </div>
 
-      {/* Edit Dialog */}
-      <Dialog open={editOpen} onOpenChange={setEditOpen}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Edit Skill</DialogTitle>
-          </DialogHeader>
-          <SkillForm skill={skill} onClose={() => setEditOpen(false)} />
-        </DialogContent>
-      </Dialog>
+      {/* Edit Dialog — dev only */}
+      {IS_DEV && (
+        <>
+          <Dialog open={editOpen} onOpenChange={setEditOpen}>
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Edit Skill</DialogTitle>
+              </DialogHeader>
+              <SkillForm skill={skill} onClose={() => setEditOpen(false)} />
+            </DialogContent>
+          </Dialog>
 
-      {/* Delete Confirm */}
-      <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete "{skill.name}"?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-              onClick={handleDelete}
-            >
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+          <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete "{skill.name}"?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  onClick={handleDelete}
+                >
+                  Delete
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </>
+      )}
     </>
   );
 }
