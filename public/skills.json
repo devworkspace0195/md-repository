@@ -1,62 +1,26 @@
 [
   {
-    "id": "sample-1",
-    "name": "UX Audit",
+    "name": "test",
     "category": "Design",
-    "tags": ["ux", "audit", "heuristics"],
-    "shortDescription": "Evaluate a UI against Nielsen's 10 usability heuristics.",
-    "longDescription": "A structured prompt for running a heuristic evaluation on any interface. Surfaces friction points, accessibility gaps, and quick-win improvements.",
-    "promptTemplate": "You are a UX expert. Evaluate the following interface description against Nielsen's 10 usability heuristics.\n\nInterface: {{interface_description}}\n\nFor each heuristic, rate it 1–5 and explain any violations found. End with a prioritized list of top 3 improvements.",
-    "usageCount": 12,
-    "createdAt": "2024-01-10T10:00:00Z",
-    "updatedAt": "2024-02-01T08:30:00Z"
+    "tags": [],
+    "shortDescription": "test",
+    "longDescription": "",
+    "promptTemplate": "## Tech Stack\n- **Framework:** React (TypeScript)\n- **Build:** Vite\n- **State:** React Context API\n- **Storage:** localStorage\n- **Styling:** Tailwind CSS + shadcn/ui components\n- **Component Library:** shadcn/ui (Radix UI primitives)\n- **Markdown:** react-markdown\n\n## Design System: shadcn/ui\n\n### Core Components to Install\n```bash\nnpx shadcn-ui@latest init\nnpx shadcn-ui@latest add button card input textarea badge dialog select separator scroll-area toast\n```\n\n### Component Usage Plan\n- **Button:** Primary actions (Save, Copy, New Skill)\n- **Card:** Skill grid items\n- **Dialog:** New skill form, delete confirmations\n- **Input/Textarea:** Form fields\n- **Badge:** Category pills, tag pills\n- **Select:** Category dropdown\n- **Toast:** Action confirmations (Copied!, Saved!, Deleted!)\n- **Scroll-area:** Detail panel content\n- **Separator:** Visual dividers in detail panel\n\n### Customization Strategy\n- Use shadcn's default theme as base (neutral palette)\n- Customize accent color to blue-600 for primary actions\n- Category badges: Override badge variant colors per category\n- Keep card shadows subtle (shadcn default is good)\n- Mobile: Use shadcn's responsive drawer component for detail panel\n\n### Typography (Tailwind + shadcn defaults)\n- Headings: `text-xl font-semibold` (skill names)\n- Body: `text-sm text-muted-foreground` (descriptions)\n- Metadata: `text-xs text-muted-foreground` (dates, counts)\n- Use shadcn's typography conventions (they're already optimized)\n\n---\n\n## Instructions for Claude Code\n\n### Setup Phase\n1. Create Vite + React + TypeScript project\n2. Install Tailwind CSS\n3. Run `npx shadcn-ui@latest init` (choose defaults)\n4. Add components listed above\n5. Verify shadcn theme in `tailwind.config.js`\n\n### Component Architecture\n- **All UI components from shadcn/ui** — no custom buttons, cards, modals\n- shadcn components live in `/src/components/ui` (auto-generated)\n- Feature components in `/src/components` (SkillCard, SkillGrid, DetailPanel, etc.)\n- Compose shadcn primitives into feature components\n- Example: SkillCard uses shadcn's Card + Badge + Button\n\n### Styling Rules\n- **Only use Tailwind classes** — no custom CSS files\n- Use shadcn's semantic color tokens:\n  - `bg-background`, `text-foreground`\n  - `bg-card`, `border-border`\n  - `text-muted-foreground` for secondary text\n- Category colors: Override badge `variant` prop with custom Tailwind classes\n- Spacing: Use Tailwind's default scale (p-4, gap-6, etc.)\n\n### Design Preferences\n- **Trust shadcn defaults:** Their spacing, shadows, radii are production-tested\n- **Don't over-customize:** If shadcn has a pattern for it, use it as-is\n- **Accessibility:** shadcn handles focus states, ARIA — don't override unless necessary\n- **Mobile:** Use shadcn's Drawer component (not Dialog) for detail panel on small screens\n\n---\n\n## Category Color Palette (Custom badges)\n\n```typescript\nconst categoryColors = {\n  Design: 'bg-amber-100 text-amber-800 border-amber-200',\n  Dev: 'bg-emerald-100 text-emerald-800 border-emerald-200',\n  Research: 'bg-purple-100 text-purple-800 border-purple-200',\n  Writing: 'bg-blue-100 text-blue-800 border-blue-200',\n  Other: 'bg-slate-100 text-slate-800 border-slate-200',\n};\n```\n\nApply these as className overrides to shadcn's Badge component.",
+    "id": "1775657749741-pik6q7a",
+    "usageCount": 0,
+    "createdAt": "2026-04-08T14:15:49.741Z",
+    "updatedAt": "2026-04-08T14:15:49.741Z"
   },
   {
-    "id": "sample-2",
-    "name": "Code Reviewer",
-    "category": "Dev",
-    "tags": ["code", "review", "typescript"],
-    "shortDescription": "Review code for bugs, performance, and best practices.",
-    "longDescription": "Performs a thorough code review covering correctness, readability, security, and performance. Returns structured feedback with severity levels.",
-    "promptTemplate": "You are a senior software engineer. Review the following code:\n\n```{{language}}\n{{code}}\n```\n\nProvide feedback in three categories:\n1. **Bugs / Correctness** — anything that will break\n2. **Performance** — inefficiencies worth fixing\n3. **Style / Readability** — minor suggestions\n\nBe concise. Label each issue as [critical], [major], or [minor].",
-    "usageCount": 34,
-    "createdAt": "2024-01-15T09:00:00Z",
-    "updatedAt": "2024-03-05T14:00:00Z"
-  },
-  {
-    "id": "sample-3",
-    "name": "Literature Summarizer",
+    "name": "Reserarch",
     "category": "Research",
-    "tags": ["summary", "academic", "papers"],
-    "shortDescription": "Summarize academic papers into structured notes.",
-    "longDescription": "Extracts key findings, methodology, limitations, and citations from academic papers. Outputs a structured summary suitable for a literature review.",
-    "promptTemplate": "Summarize the following academic paper:\n\nTitle: {{title}}\nAbstract: {{abstract}}\n\nOutput a structured summary with these sections:\n- **Research Question**\n- **Methodology**\n- **Key Findings**\n- **Limitations**\n- **Relevance** (1–2 sentences on why this matters)",
-    "usageCount": 8,
-    "createdAt": "2024-02-01T11:00:00Z",
-    "updatedAt": "2024-02-20T16:45:00Z"
-  },
-  {
-    "id": "sample-4",
-    "name": "Blog Post Draft",
-    "category": "Writing",
-    "tags": ["blog", "content", "seo"],
-    "shortDescription": "Draft a SEO-friendly blog post from a topic and outline.",
-    "longDescription": "Generates a full blog post draft with a compelling headline, introduction hook, structured body, and call-to-action. Naturally incorporates target keywords.",
-    "promptTemplate": "Write a blog post about: {{topic}}\n\nTarget audience: {{audience}}\nTarget keywords: {{keywords}}\nTone: {{tone}}\n\nStructure:\n1. Headline (give 3 options)\n2. Introduction with a hook (2–3 sentences)\n3. 3–5 body sections with subheadings\n4. Conclusion with CTA\n\nAim for {{word_count}} words.",
-    "usageCount": 21,
-    "createdAt": "2024-01-20T13:00:00Z",
-    "updatedAt": "2024-03-01T10:00:00Z"
-  },
-  {
-    "id": "sample-5",
-    "name": "Meeting Notes",
-    "category": "Other",
-    "tags": ["meetings", "notes", "action-items"],
-    "shortDescription": "Transform raw meeting notes into structured summaries.",
-    "longDescription": "Takes messy meeting notes and produces a clean summary with decisions made, action items with owners, and open questions.",
-    "promptTemplate": "Clean up these meeting notes into a structured summary:\n\nRaw notes:\n{{raw_notes}}\n\nOutput format:\n**Date:** {{date}}\n**Attendees:** {{attendees}}\n\n**Decisions Made:**\n-\n\n**Action Items:**\n- [ ] Owner: Task (due date)\n\n**Open Questions:**\n- ",
-    "usageCount": 5,
-    "createdAt": "2024-03-01T09:00:00Z",
-    "updatedAt": "2024-03-10T12:00:00Z"
+    "tags": [],
+    "shortDescription": "Test",
+    "longDescription": "",
+    "promptTemplate": "## Tech Stack\n- **Framework:** React (TypeScript)\n- **Build:** Vite\n- **State:** React Context API\n- **Storage:** localStorage\n- **Styling:** Tailwind CSS + shadcn/ui components\n- **Component Library:** shadcn/ui (Radix UI primitives)\n- **Markdown:** react-markdown\n\n## Design System: shadcn/ui\n\n### Core Components to Install\n```bash\nnpx shadcn-ui@latest init\nnpx shadcn-ui@latest add button card input textarea badge dialog select separator scroll-area toast\n```\n\n### Component Usage Plan\n- **Button:** Primary actions (Save, Copy, New Skill)\n- **Card:** Skill grid items\n- **Dialog:** New skill form, delete confirmations\n- **Input/Textarea:** Form fields\n- **Badge:** Category pills, tag pills\n- **Select:** Category dropdown\n- **Toast:** Action confirmations (Copied!, Saved!, Deleted!)\n- **Scroll-area:** Detail panel content\n- **Separator:** Visual dividers in detail panel\n\n### Customization Strategy\n- Use shadcn's default theme as base (neutral palette)\n- Customize accent color to blue-600 for primary actions\n- Category badges: Override badge variant colors per category\n- Keep card shadows subtle (shadcn default is good)\n- Mobile: Use shadcn's responsive drawer component for detail panel\n\n### Typography (Tailwind + shadcn defaults)\n- Headings: `text-xl font-semibold` (skill names)\n- Body: `text-sm text-muted-foreground` (descriptions)\n- Metadata: `text-xs text-muted-foreground` (dates, counts)\n- Use shadcn's typography conventions (they're already optimized)\n\n---\n\n## Instructions for Claude Code\n\n### Setup Phase\n1. Create Vite + React + TypeScript project\n2. Install Tailwind CSS\n3. Run `npx shadcn-ui@latest init` (choose defaults)\n4. Add components listed above\n5. Verify shadcn theme in `tailwind.config.js`\n\n### Component Architecture\n- **All UI components from shadcn/ui** — no custom buttons, cards, modals\n- shadcn components live in `/src/components/ui` (auto-generated)\n- Feature components in `/src/components` (SkillCard, SkillGrid, DetailPanel, etc.)\n- Compose shadcn primitives into feature components\n- Example: SkillCard uses shadcn's Card + Badge + Button\n\n### Styling Rules\n- **Only use Tailwind classes** — no custom CSS files\n- Use shadcn's semantic color tokens:\n  - `bg-background`, `text-foreground`\n  - `bg-card`, `border-border`\n  - `text-muted-foreground` for secondary text\n- Category colors: Override badge `variant` prop with custom Tailwind classes\n- Spacing: Use Tailwind's default scale (p-4, gap-6, etc.)\n\n### Design Preferences\n- **Trust shadcn defaults:** Their spacing, shadows, radii are production-tested\n- **Don't over-customize:** If shadcn has a pattern for it, use it as-is\n- **Accessibility:** shadcn handles focus states, ARIA — don't override unless necessary\n- **Mobile:** Use shadcn's Drawer component (not Dialog) for detail panel on small screens\n\n---\n\n## Category Color Palette (Custom badges)\n\n```typescript\nconst categoryColors = {\n  Design: 'bg-amber-100 text-amber-800 border-amber-200',\n  Dev: 'bg-emerald-100 text-emerald-800 border-emerald-200',\n  Research: 'bg-purple-100 text-purple-800 border-purple-200',\n  Writing: 'bg-blue-100 text-blue-800 border-blue-200',\n  Other: 'bg-slate-100 text-slate-800 border-slate-200',\n};\n```\n\nApply these as className overrides to shadcn's Badge component.",
+    "id": "1775657811573-wkw193m",
+    "usageCount": 1,
+    "createdAt": "2026-04-08T14:16:51.573Z",
+    "updatedAt": "2026-04-08T14:16:51.573Z"
   }
 ]
