@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//usr/local/bin/**)",
+      "Read(//Users/vimalmukundan/.nvm/versions/**)",
+      "Bash(/opt/homebrew/bin/brew install:*)",
+      "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")",
+      "Bash(npm --version)",
+      "Bash(npm create:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss:*)",
+      "Bash(./node_modules/.bin/tailwindcss init:*)",
+      "Bash(cp -r \"/Users/vimalmukundan/Claude Projects/MD-Repository/@/components/ui/.\" \"/Users/vimalmukundan/Claude Projects/MD-Repository/src/components/ui/\")",
+      "Bash(cp -r \"/Users/vimalmukundan/Claude Projects/MD-Repository/@/hooks/.\" \"/Users/vimalmukundan/Claude Projects/MD-Repository/src/hooks/\")",
+      "Bash(cp -r \"/Users/vimalmukundan/Claude Projects/MD-Repository/@/lib/.\" \"/Users/vimalmukundan/Claude Projects/MD-Repository/src/lib/\")",
+      "Bash(npx shadcn@latest add alert-dialog --yes)"
+    ]
+  }
+}
