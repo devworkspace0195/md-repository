@@ -22,5 +22,19 @@
     "usageCount": 1,
     "createdAt": "2026-04-08T14:16:51.573Z",
     "updatedAt": "2026-04-08T14:16:51.573Z"
+  },
+  {
+    "name": "New Test",
+    "category": "Design",
+    "tags": [
+      "Design"
+    ],
+    "shortDescription": "Sumary",
+    "longDescription": "Description",
+    "promptTemplate": "Sample",
+    "id": "1775802729885-n5pz07u",
+    "usageCount": 0,
+    "createdAt": "2026-04-10T06:32:09.885Z",
+    "updatedAt": "2026-04-10T06:32:09.885Z"
   }
 ]
